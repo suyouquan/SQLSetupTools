@@ -389,17 +389,23 @@ namespace FixSQLMSI
             rows.Add(r);
             Logger.LogMsg(r.ToString());
 
-
-            IEnumerable<PatchInstallation> patches = PatchInstallation.GetPatches(null, p.ProductCode, null, UserContexts.All, PatchStates.All);
-
-
-
-            foreach (PatchInstallation patch in patches)
+            try
             {
-                myRow patchRow = new myRow(patch);
-                rows.Add(patchRow);
-                Logger.LogMsg(patchRow.ToString());
 
+                IEnumerable<PatchInstallation> patches = PatchInstallation.GetPatches(null, p.ProductCode, null, UserContexts.All, PatchStates.All);
+
+
+
+                foreach (PatchInstallation patch in patches)
+                {
+                    myRow patchRow = new myRow(patch);
+                    rows.Add(patchRow);
+                    Logger.LogMsg(patchRow.ToString());
+
+                }
+            }catch(Exception ex)
+            {
+                Logger.LogError(ex.Message);
             }
         }
         /// <summary>
