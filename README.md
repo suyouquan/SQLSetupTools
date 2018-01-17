@@ -7,5 +7,4 @@ This tool has a friendly user interface to tell you what SQL server setup relate
 
 I would recommend you  use Windows Installer Cache Verifier Package, as directed in KB article 2667628, to verify the cached SQL MSI/MSP files if you use this tool to fix MSI/MSP files.
 
-The binaries can be downloaded in Release tab or here:https://github.com/suyouquan/SQLSetupTools/files/1637269/FixSQLMSI.Version1.3.zip
-(Version 1.2 is removed. The latest version is 1.3)
+The binaries can be downloaded in Release tab or here:https://github.com/suyouquan/SQLSetupTools/files/1637549/FixSQLMSI.Version.1.3.2.zip(Version 1.2 is removed. The latest version is 1.3.2)
