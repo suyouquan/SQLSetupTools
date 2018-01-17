@@ -87,12 +87,14 @@ namespace FixSQLMSI
                                 {
                                    //Cannot set  it here,  if sp1 applied then production version is sp1 vesion, but cached msi is still RTM version
                                     // stat = CacheFileStatus.Mismatched;
-                                    Comment = p.LocalPackage + ": ProductVersion not matched";
+                                   // Comment = p.LocalPackage + ": ProductVersion not matched";
                                 }
                             }
-
+                            /*
+                            //Cannot compare product name, sp1/sp2 will change product name...
                             if (stat != CacheFileStatus.Mismatched)
                             {
+                                //Cannot compare product name, sp1/sp2 will change product name...
                                 String pn = MSIHelper.Get(p.LocalPackage, "ProductName");
                                 if (p.ProductName != pn)
                                 {
@@ -100,6 +102,7 @@ namespace FixSQLMSI
                                     Comment = p.LocalPackage + ": ProductName not matched! [" + pn + "] vs [" + p.ProductName + "]";
                                 }
                             }
+                            */
 
                         }
                         catch (Exception ex)
@@ -161,15 +164,15 @@ namespace FixSQLMSI
                     {
                         try
                         {
-                            String ver = MSIHelper.MspGetMetadata(p.LocalPackage, "BaselineVersion");
-                            if (!String.IsNullOrEmpty(this.ProductVersion))
-                            {
-                                if (ver != this.ProductVersion)
-                                {
-                                    stat = CacheFileStatus.Mismatched;
-                                    Comment = p.LocalPackage + ": BaselineVersion in MSP not matched the ProductVersion in its MSI. If SP applied this could be normal.";
-                                }
-                            }
+                            //String ver = MSIHelper.MspGetMetadata(p.LocalPackage, "BaselineVersion");
+                            //if (!String.IsNullOrEmpty(this.ProductVersion))
+                            //{
+                            //    if (ver != this.ProductVersion)
+                            //    {
+                            //        stat = CacheFileStatus.Mismatched;
+                            //        Comment = p.LocalPackage + ": BaselineVersion in MSP not matched the ProductVersion in its MSI. If SP applied this could be normal.";
+                            //    }
+                            //}
                             //add one more check. displayname should match
                             if (stat != CacheFileStatus.Mismatched)
                             {
@@ -210,6 +213,7 @@ namespace FixSQLMSI
                 //this.IsAdvertised = p.IsAdvertised.ToString();
                 this.ProductCode = p.ProductCode;
                 this.ProductName = p.DisplayName;
+                //patch won't have product version
                 // this.ProductVersion = p.ProductVersion.ToString();
                 //  this.Publisher = p.Publisher;
                 this.isPatch = true;
