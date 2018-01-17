@@ -18,6 +18,8 @@ namespace FixSQLMSI
         public string ProductVersion; //if msp it is PatchVersion
         public string ProductCode = "";  //msi, if msp , get it from sumary:targets colume
         public string UpgradeCode = "";
+        public string PackageCode = "";//for msi
+        public string PatchCode = "";//for msp
         public string BaselineVersion = ""; //For msp 
         public bool isMsp = false;
         public bool failedPackage = false;
@@ -54,6 +56,15 @@ namespace FixSQLMSI
 
                         }
 
+                        try
+                        {
+                            this.PackageCode = qData.SummaryInfo.RevisionNumber;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError(ex.Message);
+                        }
                     }
                     else if (MsiMspFileName.ToUpper().EndsWith(".MSP"))
                     {
@@ -83,6 +94,15 @@ namespace FixSQLMSI
                         this.ProductCode = qData.SummaryInfo.Template;
                         this.isMsp = true;
 
+                        try
+                        {
+                            this.PatchCode = qData.SummaryInfo.RevisionNumber;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError(ex.Message);
+                        }
 
 
                     }

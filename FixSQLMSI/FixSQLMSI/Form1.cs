@@ -438,7 +438,7 @@ namespace FixSQLMSI
                         }
                         if (r.isPatch)
                         {
-                            var matchedFile = myData.FindMsp(r.ProductName,r.PackageName );
+                            var matchedFile = myData.FindMsp(r.ProductName,r.PackageName,r.PatchCode );
                             if (!String.IsNullOrEmpty(matchedFile))
                             {
                                 string destination = Path.Combine(@"c:\WINDOWS\INSTALLER\", r.CachedMsiMsp);
@@ -467,8 +467,9 @@ namespace FixSQLMSI
 
                         }
                         else
-                        {
-                            var matchedFile = myData.FindMsi(r.ProductName,r.PackageName,r.ProductCode,r.ProductVersion);
+
+                        { 
+                            var matchedFile = myData.FindMsi(r.ProductName,r.PackageName,r.ProductCode,r.ProductVersion,r.PackageCode);
                             if (!String.IsNullOrEmpty(matchedFile))
                             {
 
@@ -521,7 +522,7 @@ namespace FixSQLMSI
 
                     if (r.isPatch)
                     {
-                        var matchedFile = myData.FindMsp(r.ProductName, r.PackageName);
+                        var matchedFile = myData.FindMsp(r.ProductName, r.PackageName,r.PatchCode);
                         if (!String.IsNullOrEmpty(matchedFile))
                         {
                             Logger.LogMsg("[Found missing MSP]" + matchedFile);
@@ -541,7 +542,7 @@ namespace FixSQLMSI
                     }
                     else
                     {
-                        var matchedFile = myData.FindMsi(r.ProductName, r.PackageName, r.ProductCode, r.ProductVersion);
+                        var matchedFile = myData.FindMsi(r.ProductName, r.PackageName, r.ProductCode, r.ProductVersion,r.PackageCode);
                         if (!String.IsNullOrEmpty(matchedFile))
                         {
                             Logger.LogMsg("[Found missing MSI]" + matchedFile);

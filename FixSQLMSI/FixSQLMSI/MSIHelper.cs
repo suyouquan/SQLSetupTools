@@ -61,6 +61,23 @@ namespace FixSQLMSI
             }
         }
 
+        public static string GetRevisionNumber(string msimsp)
+        {
+            try
+            {
+                using (var db = new QDatabase(msimsp.ToLower(), DatabaseOpenMode.ReadOnly))
+                {
+                    return db.SummaryInfo.RevisionNumber;
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            return "";
+        }
+
+
         public static Dictionary<String, String> GetProperties(string msi)
         {
             var t = new Dictionary<string, string>();

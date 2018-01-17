@@ -33,6 +33,9 @@ namespace FixSQLMSI
         public String PatchBaselineVersion { get; set; }
         public String ProductName { get; set; }
         public String ProductCode { get; set; }
+        public string PackageCode { get; set; } //for MSI
+        public string PatchCode { get; set; } //For msp
+
         public string LastUsedSource { get; set; }
         public String IsAdvertised { get; set; }
 
@@ -59,13 +62,13 @@ namespace FixSQLMSI
         public myRow(ProductInstallation p)
         {
 
-
+           // if(!string.IsNullOrEmpty(p.ProductName) && )
             this.Index = myData.Index++;
             try
             {
 
                 this.ProductVersion = p.ProductVersion.ToString();
-
+                if (!string.IsNullOrEmpty(p.AdvertisedPackageCode)) this.PackageCode = p.AdvertisedPackageCode;
                 CacheFileStatus stat = CacheFileStatus.Missing;
                 if (!String.IsNullOrEmpty(p.LocalPackage))
                 {
@@ -79,17 +82,27 @@ namespace FixSQLMSI
                         {
 
                             String ver = MSIHelper.Get(p.LocalPackage, "ProductVersion");
-                            CachedMsiMspVersion = ver;
-
-                            if (!String.IsNullOrEmpty(this.ProductVersion))
+                            this.CachedMsiMspVersion = ver;
+                            string cachedPackageCode = MSIHelper.GetRevisionNumber(p.LocalPackage);
+                            if(!string.IsNullOrEmpty(cachedPackageCode) && !string.IsNullOrEmpty(this.PackageCode))
                             {
-                                if (ver != this.ProductVersion)
+                                if(string.Compare(this.PackageCode,cachedPackageCode,StringComparison.Ordinal)!=0)
                                 {
-                                   //Cannot set  it here,  if sp1 applied then production version is sp1 vesion, but cached msi is still RTM version
-                                    // stat = CacheFileStatus.Mismatched;
-                                   // Comment = p.LocalPackage + ": ProductVersion not matched";
+                                    stat = CacheFileStatus.Mismatched;
+                                    this.Comment="Package code doesn't matched. cached file has package code:"+cachedPackageCode+", but Installer expected:"+this.PackageCode;
+
                                 }
+
                             }
+                            //if (!String.IsNullOrEmpty(this.ProductVersion))
+                            //{
+                            //    if (ver != this.ProductVersion)
+                            //    {
+                            //       //Cannot set  it here,  if sp1 applied then production version is sp1 vesion, but cached msi is still RTM version
+                            //        // stat = CacheFileStatus.Mismatched;
+                            //       // Comment = p.LocalPackage + ": ProductVersion not matched";
+                            //    }
+                            //}
                             /*
                             //Cannot compare product name, sp1/sp2 will change product name...
                             if (stat != CacheFileStatus.Mismatched)
@@ -137,7 +150,7 @@ namespace FixSQLMSI
 
                 this.Publisher = p.Publisher;
 
-
+                
 
             }
             catch (Exception e)
@@ -157,6 +170,9 @@ namespace FixSQLMSI
 
             try
             {
+
+                if (!string.IsNullOrEmpty(p.PatchCode)) this.PatchCode = p.PatchCode;
+
                 CacheFileStatus stat = CacheFileStatus.Missing;
                 if (!String.IsNullOrEmpty(p.LocalPackage))
                 {
@@ -164,6 +180,18 @@ namespace FixSQLMSI
                     {
                         try
                         {
+
+                            string cachePatchCode = MSIHelper.GetRevisionNumber(p.LocalPackage);
+                            if (!string.IsNullOrEmpty(cachePatchCode) && !string.IsNullOrEmpty(this.PatchCode))
+                            {
+                                if (string.Compare(this.PatchCode, cachePatchCode, StringComparison.Ordinal) != 0)
+                                {
+                                    stat = CacheFileStatus.Mismatched;
+                                    this.Comment = "Patch code doesn't matched. cached file has package code:" + cachePatchCode + ", but Installer expected:" + this.PatchCode;
+
+                                }
+
+                            }
                             //String ver = MSIHelper.MspGetMetadata(p.LocalPackage, "BaselineVersion");
                             //if (!String.IsNullOrEmpty(this.ProductVersion))
                             //{
@@ -180,7 +208,7 @@ namespace FixSQLMSI
                                 if (p.DisplayName != pn)
                                 {
                                     stat = CacheFileStatus.Mismatched;
-                                    Comment = p.LocalPackage + ": DisplayName not matched! [" + pn + "] vs [" + p.DisplayName + "]";
+                                    Comment = p.LocalPackage + ": DisplayName not matched! Cached file has DisplayName:[" + pn + "] but Installer expected: [" + p.DisplayName + "]";
                                 }
                             }
                         }
@@ -620,15 +648,19 @@ namespace FixSQLMSI
 
         }
 
-        public static string FindMsi(string productName, String pkgName, string pcode, string version)
+        public static string FindMsi(string productName, String pkgName, string pcode, string version,string pkgCode)
         {
 
             foreach (MsiMspPackage pkg in sourcePkgs)
             {
                 if (//pkg.ProductCode == pcode --Cannot compare product code since transform could be applied, which means product code installed is not the same as the one in msi package
                      pkg.MsiMspFileName == pkgName
-                    && pkg.ProductVersion == version
-                    && pkg.ProductName == productName
+                    //cannot compare version. for example, for sp1, its version is changed, different from RTM version
+                    // && pkg.ProductVersion == version
+                    //cannot compare product name as well. sp1/sp2 could change it.
+                   // && pkg.ProductName == productName
+                   //Its package code should be matched
+                   && pkg.PackageCode== pkgCode
                     )
                 {
                     Logger.LogMsg("[Found missing MSI]" + pkg.FullPath);
@@ -665,7 +697,7 @@ namespace FixSQLMSI
         }
 
 
-        public static string FindMsp(string displayName, String pkgName)
+        public static string FindMsp(string displayName, String pkgName,string patchCode)
         {
 
             foreach (MsiMspPackage pkg in sourcePkgs)
@@ -673,7 +705,7 @@ namespace FixSQLMSI
                 if (pkg.isMsp
                     && pkg.ProductName == displayName
                     && pkg.MsiMspFileName == pkgName
-
+                    && pkg.PatchCode==patchCode
                     )
 
                 {
@@ -709,7 +741,7 @@ namespace FixSQLMSI
                 {
                     if (r.isPatch)
                     {
-                        var matchedFile = myData.FindMsp(r.ProductName, r.PackageName);
+                        var matchedFile = myData.FindMsp(r.ProductName, r.PackageName,r.PatchCode);
                         if (!String.IsNullOrEmpty(matchedFile))
                         {
                             r.FixCommand = "COPY \"" + matchedFile + "\" \"C:\\WINDOWS\\INSTALLER\\" + r.CachedMsiMsp + "\"";
@@ -718,7 +750,7 @@ namespace FixSQLMSI
                     }
                     else
                     {
-                        var matchedFile = myData.FindMsi(r.ProductName, r.PackageName, r.ProductCode, r.ProductVersion);
+                        var matchedFile = myData.FindMsi(r.ProductName, r.PackageName, r.ProductCode, r.ProductVersion,r.PackageCode);
                         if (!String.IsNullOrEmpty(matchedFile))
                         {
                             r.FixCommand = "COPY \"" + matchedFile + "\" \"C:\\WINDOWS\\INSTALLER\\" + r.CachedMsiMsp + "\"";
