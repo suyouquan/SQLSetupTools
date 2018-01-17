@@ -1,4 +1,4 @@
-    # FixSQLMSI
+#FixSQLMSI
 
 This tool is to extend the capability of “FindSQLInstalls.vbs script” from below article:
 https://support.microsoft.com/en-us/help/969052
@@ -10,4 +10,5 @@ I would recommend you  use Windows Installer Cache Verifier Package, as directed
 The binaries can be downloaded in Release tab or below:
 https://github.com/suyouquan/SQLSetupTools/files/1637641/FixSQLMSI.V1.3.2.zip
 
+Note that you need NET 4.5 to run this tool.
 
