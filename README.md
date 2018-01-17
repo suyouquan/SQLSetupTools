@@ -1,4 +1,4 @@
-#FixSQLMSI
+# FixSQLMSI
 
 This tool is to extend the capability of “FindSQLInstalls.vbs script” from below article:
 https://support.microsoft.com/en-us/help/969052
