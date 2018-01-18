@@ -110,27 +110,27 @@ namespace FixSQLMSI
                 //var mdmpFiles = Directory.EnumerateFiles(sourceDirectory, "*.mdmp", SearchOption.AllDirectories);
 
                 DirectoryInfo di = new DirectoryInfo(sourceDirectory);
-                var i = 0;
+               
 
                 var directory = new DirectoryInfo(sourceDirectory);
                 //var fileTypes = new[] { "*.mdmp", "*.dmp" };
-                var files = fileTypes.SelectMany(p => directory.EnumerateFiles(p, SearchOption.AllDirectories));
+                //this require 4.0
+                // var files = fileTypes.SelectMany(p => directory.EnumerateFiles(p, SearchOption.AllDirectories));
 
-                //foreach (var dumpfile in di.EnumerateFiles("*.mdmp", SearchOption.AllDirectories))
-                foreach (var f in files)
+                foreach (string fileType in fileTypes)
                 {
-                    i++;
-                    // if (i > 6) break;
-                    resultFiles.Add(f.FullName);
+                    var files = Directory.GetFiles(sourceDirectory, fileType, SearchOption.AllDirectories);
 
-
+                    resultFiles.AddRange(files);
                 }
+                            
+ 
 
 
             }
             catch (Exception ex)
             {
-                Logger.LogError(  ex.Message);
+                Logger.LogError("GetFilesFromFolder:" + ex.Message);
 
 
             }

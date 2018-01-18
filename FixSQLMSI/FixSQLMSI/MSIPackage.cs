@@ -63,7 +63,7 @@ namespace FixSQLMSI
                         }
                         catch (Exception ex)
                         {
-                            Logger.LogError(ex.Message);
+                            Logger.LogError("SummaryInfo.RevisionNumber:"+ex.Message);
                         }
                     }
                     else if (MsiMspFileName.ToUpper().EndsWith(".MSP"))
@@ -101,7 +101,7 @@ namespace FixSQLMSI
                         }
                         catch (Exception ex)
                         {
-                            Logger.LogError(ex.Message);
+                            Logger.LogError("SummaryInfo.RevisionNumber:" + ex.Message);
                         }
 
 
@@ -114,7 +114,7 @@ namespace FixSQLMSI
             }
             catch (Exception ex)
             {
-                Logger.LogError(":MsiMspPackage:" + ex.Message);
+                Logger.LogError("MsiMspPackage:" + ex.Message);
                
                 failedPackage = true;
                 return;

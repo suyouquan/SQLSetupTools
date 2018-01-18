@@ -155,7 +155,7 @@ namespace FixSQLMSI
             }
             catch (Exception e)
             {
-                Logger.LogError("myRow:ProductInstallation:" + e.Message + ":" + e.HResult.ToString());
+                Logger.LogError("myRow:ProductInstallation:" + e.Message);
             }
 
         }
@@ -274,7 +274,7 @@ namespace FixSQLMSI
             }
             catch (Exception e)
             {
-                Logger.LogError("myRow:patch:" + e.Message + ":" + e.HResult.ToString());
+                Logger.LogError("myRow:patch:" + e.Message );
             }
 
         }
@@ -437,7 +437,7 @@ namespace FixSQLMSI
                 }
             }catch(Exception ex)
             {
-                Logger.LogError(ex.Message);
+                Logger.LogError("AddRow:"+ex.Message);
             }
         }
         /// <summary>
@@ -475,7 +475,7 @@ namespace FixSQLMSI
                 }
                 catch (Exception e)
                 {
-                    Logger.LogError("ScanWithoutSQLSetupSource:" + e.Message + ":" + e.HResult.ToString());
+                    Logger.LogError("ScanWithoutSQLSetupSource:" + e.Message  );
                 }
 
 
@@ -597,7 +597,7 @@ namespace FixSQLMSI
                 }
                 catch (Exception e)
                 {
-                    Logger.LogError("ScanWithoutSQLSetupSource:" + e.Message + ":" + e.HResult.ToString("X8"));
+                    Logger.LogError("ScanWithoutSQLSetupSource:" + e.Message  );
                 }
 
 

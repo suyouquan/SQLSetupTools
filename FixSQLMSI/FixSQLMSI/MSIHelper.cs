@@ -72,7 +72,7 @@ namespace FixSQLMSI
             }
             catch(Exception ex)
             {
-                Logger.LogError(ex.Message);
+                Logger.LogError("GetRevisionNumber:" + ex.Message);
             }
             return "";
         }
