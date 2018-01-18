@@ -681,8 +681,8 @@ namespace FixSQLMSI
             foreach (MsiMspPackage p in sourcePkgs)
             {
                 if (!p.isMsp &&
-                    p.MsiMspFileName == pkg.MsiMspFileName &&
-                    p.ProductVersion == pkg.BaselineVersion)
+                    p.MsiMspFileName.ToUpper() == pkg.MsiMspFileName.ToUpper()
+                    && p.ProductVersion == pkg.BaselineVersion)
                 {
                     Logger.LogMsg("[Baseline MSI found]" + p.FullPath);
                     UpdateUI("[Baseline MSI found]" + p.FullPath);
@@ -704,7 +704,7 @@ namespace FixSQLMSI
             {
                 if (pkg.isMsp
                     && pkg.ProductName == displayName
-                    && pkg.MsiMspFileName == pkgName
+                    && pkg.MsiMspFileName.ToUpper() == pkgName.ToUpper()
                     && pkg.PatchCode==patchCode
                     )
 
@@ -712,13 +712,7 @@ namespace FixSQLMSI
                     Logger.LogMsg("[Missing MSP found]" + pkg.FullPath);
                     UpdateUI("[Missing MSP found]" + pkg.FullPath);
                     return pkg.FullPath;
-                    /* Should I check baseline MSI?
-                    //check to see if baseline MSI exists  or not
-                    Logger.LogMsg("Check Baseline MSI whether it exists...");
-                    if (IsBaseLineMSIExist(pkg))
-                        return pkg.FullPath;
-                        */
-
+                     
                 }
 
 
