@@ -10,5 +10,10 @@ I would recommend you  use Windows Installer Cache Verifier Package, as directed
 The binaries can be downloaded in Release tab or below:
 https://github.com/suyouquan/SQLSetupTools/releases/download/v1.3/FixSQLMSI.V1.3.2.zip
 
-Note that you need NET 4.5 to run this tool.
+Note that you need NET 4.5 to run above version.
+
+If you don't have NET 4.5 installed you can try below version:
+https://github.com/suyouquan/SQLSetupTools/releases/download/v1.4/FixSQLMSI.V1.4.For.NET.3.5.zip
+
+This version requires NET 3.5 installed on the machine but this version runs a little bit slow.
 
