@@ -201,7 +201,8 @@ namespace FixSQLMSI
                             //        Comment = p.LocalPackage + ": BaselineVersion in MSP not matched the ProductVersion in its MSI. If SP applied this could be normal.";
                             //    }
                             //}
-                            //add one more check. displayname should match
+                            //don't check this. patch code is good enough to check mismatched msp file.
+                            /*
                             if (stat != CacheFileStatus.Mismatched)
                             {
                                 String pn = MSIHelper.MspGetMetadata(p.LocalPackage, "DisplayName");
@@ -211,6 +212,7 @@ namespace FixSQLMSI
                                     Comment = p.LocalPackage + ": DisplayName not matched! Cached file has DisplayName:[" + pn + "] but Installer expected: [" + p.DisplayName + "]";
                                 }
                             }
+                            */
                         }
                         catch (Exception ex)
                         {
@@ -654,7 +656,7 @@ namespace FixSQLMSI
             foreach (MsiMspPackage pkg in sourcePkgs)
             {
                 if (//pkg.ProductCode == pcode --Cannot compare product code since transform could be applied, which means product code installed is not the same as the one in msi package
-                     pkg.MsiMspFileName == pkgName
+                     pkg.MsiMspFileName.ToUpper() == pkgName.ToUpper()
                     //cannot compare version. for example, for sp1, its version is changed, different from RTM version
                     // && pkg.ProductVersion == version
                     //cannot compare product name as well. sp1/sp2 could change it.
@@ -703,7 +705,7 @@ namespace FixSQLMSI
             foreach (MsiMspPackage pkg in sourcePkgs)
             {
                 if (pkg.isMsp
-                    && pkg.ProductName == displayName
+                  //  && pkg.ProductName == displayName //remark this, use patch code and package name is good enough.
                     && pkg.MsiMspFileName.ToUpper() == pkgName.ToUpper()
                     && pkg.PatchCode==patchCode
                     )

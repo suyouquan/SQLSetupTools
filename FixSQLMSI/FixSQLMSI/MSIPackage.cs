@@ -59,11 +59,12 @@ namespace FixSQLMSI
                         try
                         {
                             this.PackageCode = qData.SummaryInfo.RevisionNumber;
-
+                            if (String.IsNullOrEmpty(this.PackageCode)) this.failedPackage = true;
                         }
                         catch (Exception ex)
                         {
                             Logger.LogError("SummaryInfo.RevisionNumber:"+ex.Message);
+                             this.failedPackage = true;
                         }
                     }
                     else if (MsiMspFileName.ToUpper().EndsWith(".MSP"))
@@ -97,10 +98,11 @@ namespace FixSQLMSI
                         try
                         {
                             this.PatchCode = qData.SummaryInfo.RevisionNumber;
-
+                            if (String.IsNullOrEmpty(this.PatchCode)) this.failedPackage = true;
                         }
                         catch (Exception ex)
                         {
+                             this.failedPackage = true;
                             Logger.LogError("SummaryInfo.RevisionNumber:" + ex.Message);
                         }
 
