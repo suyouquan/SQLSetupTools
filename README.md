@@ -17,3 +17,5 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/v1.5/FixSQLMSI.V1.5
 
 This version requires NET 3.5 installed on the machine but this version runs a little bit slow.
 
+Screenshot:
+![Screenshot](https://user-images.githubusercontent.com/35096859/35182752-76573eee-fdd2-11e7-886b-5a97c799daa3.png)
