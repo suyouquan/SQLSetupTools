@@ -112,6 +112,9 @@ namespace FixMissingMSI
                         }
                         catch (Exception ex)
                         {
+                            // (any exception) set it to mismatched
+                            stat = CacheFileStatus.Mismatched;
+                            Comment = ex.Message;
                             Logger.LogError("[Mismatched MSI check failed]" + p.LocalPackage + " \n" + ex.Message);
                         }
 
@@ -208,6 +211,9 @@ namespace FixMissingMSI
                         }
                         catch (Exception ex)
                         {
+                            // (any exception) set it to mismatched
+                            stat = CacheFileStatus.Mismatched;
+                            Comment = ex.Message;
                             Logger.LogError("[Mismatched MSP check failed]" + p.LocalPackage + " \n" + ex.Message);
                         }
 

@@ -83,7 +83,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1875, 1028);
+            this.dataGridView1.Size = new System.Drawing.Size(1875, 1026);
             this.dataGridView1.TabIndex = 35;
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -150,7 +150,7 @@
             // lbMismatched
             // 
             this.lbMismatched.AutoSize = true;
-            this.lbMismatched.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lbMismatched.BackColor = System.Drawing.Color.Yellow;
             this.lbMismatched.Location = new System.Drawing.Point(767, 6);
             this.lbMismatched.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbMismatched.Name = "lbMismatched";
@@ -162,7 +162,7 @@
             // lbMissing
             // 
             this.lbMissing.AutoSize = true;
-            this.lbMissing.ForeColor = System.Drawing.Color.Red;
+            this.lbMissing.BackColor = System.Drawing.Color.Red;
             this.lbMissing.Location = new System.Drawing.Point(613, 6);
             this.lbMissing.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbMissing.Name = "lbMissing";
@@ -174,7 +174,7 @@
             // lbOK
             // 
             this.lbOK.AutoSize = true;
-            this.lbOK.ForeColor = System.Drawing.Color.Green;
+            this.lbOK.BackColor = System.Drawing.SystemColors.Window;
             this.lbOK.Location = new System.Drawing.Point(492, 6);
             this.lbOK.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbOK.Name = "lbOK";
@@ -204,7 +204,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1875, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1875, 42);
             this.menuStrip1.TabIndex = 52;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -326,6 +326,7 @@
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
             this.manualToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
             this.manualToolStripMenuItem.Text = "Manual";
+            this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
@@ -357,7 +358,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 40);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 42);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -368,7 +369,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(1875, 1111);
+            this.splitContainer1.Size = new System.Drawing.Size(1875, 1109);
             this.splitContainer1.SplitterDistance = 79;
             this.splitContainer1.TabIndex = 55;
             // 

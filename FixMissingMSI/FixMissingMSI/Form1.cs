@@ -25,7 +25,7 @@ namespace FixMissingMSI
         public Form1()
         {
             InitializeComponent();
-
+           
             lbl = this.lbInfo;
             lbl.Text = "";
 
@@ -39,7 +39,7 @@ namespace FixMissingMSI
             myform = this;
 
             string ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            this.Text = this.Text + "  Verion" + ver.Replace(".0.0", "");
+            this.Text = this.Text + "  Version " + ver.Replace(".0.0", "");
 
             splitContainer1.SplitterDistance= splitContainer1.Panel1MinSize;
 
@@ -748,11 +748,16 @@ namespace FixMissingMSI
 
         }
 
+        private void manualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //string path2 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 
+            path = Path.Combine(path, "Manual");
+            path = Path.Combine(path, "FixMissingMSI Readme.pdf");
 
-
-
-
+            Process.Start("explorer.exe", path);
+        }
     }
 
 }
