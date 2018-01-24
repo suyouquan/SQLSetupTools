@@ -50,6 +50,6 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/v1.2/ProductBrowser
 # SQL Registry Viewer 1.0
 A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
 https://github.com/suyouquan/SQLSetupTools/releases/download/1.0/SQLRegistryViewer_V1.0_NET4.5.zip
-
+![sqlregistryviewer_v1 0](https://user-images.githubusercontent.com/35096859/35322758-61b34efe-0126-11e8-980e-611a7cb4b1c9.png)
 
 
