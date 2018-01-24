@@ -17,4 +17,4 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_
 Screenshot:
 ![screenshot](https://user-images.githubusercontent.com/35096859/35314819-939ae972-0103-11e8-8e32-f0f9bcc7475e.png)
 
-[up](#FixMissingMSI Version 2.0)
+[up](#fixmissingmsi-Version-20)
