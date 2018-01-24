@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FindWhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindWhat.Designer.cs">
+      <DependentUpon>FindWhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="myData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -71,6 +77,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MSIHelper.cs" />
     <Compile Include="MSIPackage.cs" />
+    <Compile Include="myFind.cs" />
     <Compile Include="myRow.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="Program.cs" />
@@ -85,6 +92,9 @@
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="SQLProduct.cs" />
     <Compile Include="Utility.cs" />
+    <EmbeddedResource Include="FindWhat.resx">
+      <DependentUpon>FindWhat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

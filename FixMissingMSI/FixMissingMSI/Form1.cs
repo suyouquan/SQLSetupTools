@@ -27,6 +27,7 @@ namespace FixMissingMSI
             InitializeComponent();
 
             lbl = this.lbInfo;
+            lbl.Text = "";
 
             lableSwitch(false);
 
@@ -41,6 +42,8 @@ namespace FixMissingMSI
             this.Text = this.Text + "  Verion" + ver.Replace(".0.0", "");
 
             splitContainer1.SplitterDistance= splitContainer1.Panel1MinSize;
+
+            myFind.dataGridView1 = dataGridView1;
 
         }
         public void lableSwitch(bool isVisible)
@@ -569,7 +572,7 @@ namespace FixMissingMSI
         {
             if (myData.rows.Count == 0)
             {
-                MessageBox.Show("Empty result.Nothing to export.", "Empty Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Empty result. Nothing to export.", "Empty Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -672,5 +675,84 @@ namespace FixMissingMSI
 
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ver = ver.Replace(".0.0", "");
+
+            MessageBox.Show("FixMissingMSI, Version " + ver + "\nA tool to fix missing/mismatched installer cached MSI/MSP files\nBy Simon Su @Microsoft, 2018.1.22", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void Find()
+        {
+            Form search = new FindWhat();
+            DialogResult r = search.ShowDialog();
+            if (r == DialogResult.Yes)
+            {
+               
+
+
+            }
+            else if (r == DialogResult.No)
+            {
+                MessageBox.Show("Key not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+           
+        }
+        private void findToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Find();
+        }
+
+        private void findNextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(myFind.lastFindText))
+            {
+
+                bool isFound = myFind.Find(myFind.lastFindText);
+                if (isFound)
+                { 
+
+                }
+                else
+                    MessageBox.Show("Key not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+            }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+            var cnt = dataGridView1.SelectedCells.Count;
+            if (cnt <= 0) return;
+
+            int minRowIdx = Int32.MaxValue;
+            int minCellIdx = Int32.MaxValue;
+            foreach (var  cell in dataGridView1.SelectedCells)
+            {
+                if (cell.GetType() == typeof(DataGridViewTextBoxCell))
+                {
+                    DataGridViewTextBoxCell c = (DataGridViewTextBoxCell)cell;
+                    minRowIdx = Math.Min(minRowIdx, c.RowIndex);
+                    minCellIdx = Math.Max(Math.Min(minCellIdx, c.ColumnIndex), 0);
+                }
+            }
+
+            myFind.cellIdx = minCellIdx;
+            myFind.rowIdx = minRowIdx;
+            myFind.IncreaseStep();
+
+        }
+
+
+
+
+
+
     }
+
 }
