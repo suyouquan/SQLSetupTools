@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace ProductBrowser
 {
-   public static class Product
+    public static class Product
     {
 
         public delegate void callbackProgressFunc(string info);
@@ -24,7 +24,8 @@ namespace ProductBrowser
 
 
         public static TreeNode root;
-
+        public static string filterString = "SQL";
+        public static bool isFilterOn = false;
         public static void Init(callbackProgressFunc fn, callbackDoneFunc done)
         {
             string computer = System.Environment.MachineName;
@@ -46,10 +47,10 @@ namespace ProductBrowser
             GetAllProducts();
             DoneCallBack();
         }
-    
+
         public static void AddProductProperty(TreeNode node, ProductInstallation p)
         {
-            TreeNode   nd = new TreeNode("ProductName : " + p.ProductName);
+            TreeNode nd = new TreeNode("ProductName : " + p.ProductName);
             nd.ImageIndex = 1;
             nd.SelectedImageIndex = 1;
             nd.Name = nd.Text;
@@ -63,7 +64,7 @@ namespace ProductBrowser
             node.Nodes.Add(nd);
 
 
-             nd = new TreeNode("AdvertisedLanguage : " + p.AdvertisedLanguage);
+            nd = new TreeNode("AdvertisedLanguage : " + p.AdvertisedLanguage);
             nd.Name = nd.Text;
             nd.ImageIndex = 1;
             nd.SelectedImageIndex = 1;
@@ -192,7 +193,7 @@ namespace ProductBrowser
                 ndkid.SelectedImageIndex = 1;
 
                 nd.Nodes.Add(ndkid);
-          
+
 
                 ndkid = new TreeNode("MediaPackagePath : " + p.SourceList.MediaPackagePath);
                 ndkid.Name = ndkid.Text;
@@ -214,7 +215,7 @@ namespace ProductBrowser
 
 
             }
-         
+
 
 
         }
@@ -343,19 +344,40 @@ namespace ProductBrowser
             var allPrds = ProductInstallation.GetProducts(null, null, UserContexts.All);
 
             int i = 0;
-            foreach (ProductInstallation p in allPrds)
+            if (isFilterOn && filterString != "")
             {
-                if (string.IsNullOrEmpty(p.ProductName)) continue;
+                root.Text = System.Environment.MachineName + " filtered by \"" + filterString + "\"";
+
+            }
+            else root.Text = System.Environment.MachineName;
+             foreach (ProductInstallation p in allPrds)
+            {
+               // if (string.IsNullOrEmpty(p.ProductName)) continue;
+               if(isFilterOn && filterString!="")
+                {
+
+                    if (string.IsNullOrEmpty(p.ProductName)) continue;
+                    else if (!p.ProductName.ToLower().Contains(filterString.ToLower())) continue;
+                }
                 try
                 {
-                    UpdateProgress("Processing ("+i+") "+p.ProductName);
-                    i++;
+                    UpdateProgress("Processing (" + i + ") " + p.ProductName);
+                    i++; //if (i > 40) break;
                     TreeNode node = new TreeNode(p.ProductName);
                     node.Name = p.ProductName;
                     root.Nodes.Add(node);
                     TreeNode nodeProp = new TreeNode("Properties");
                     node.Nodes.Add(nodeProp);
-                    AddProductProperty(nodeProp, p);
+                    try
+                    {
+                        AddProductProperty(nodeProp, p);
+                    }
+                    catch(Exception ex)
+                    {
+                        TreeNode error = new TreeNode(ex.Message);
+                        nodeProp.Nodes.Add(error);
+                        Logger.LogError(p.ProductName + ":" + ex.Message);
+                    }
 
 
                     List<PatchInstallation> patches = PatchInstallation.GetPatches(null, p.ProductCode, null, UserContexts.All, PatchStates.All).ToList();
@@ -365,16 +387,26 @@ namespace ProductBrowser
                         node.Nodes.Add(pa);
                         foreach (PatchInstallation pch in patches)
                         {
-                          
+
                             TreeNode nd = new TreeNode(pch.DisplayName);
                             nd.Name = pch.DisplayName;
                             pa.Nodes.Add(nd);
+
+                            try
+                            {
+                                AddPatchProperty(nd, pch);
+                            }
+                            catch (Exception ex)
+                            {
+                                TreeNode error = new TreeNode(ex.Message);
+                                nd.Nodes.Add(error);
+                                Logger.LogError(pch.DisplayName+":"+ex.Message);
+                            }
                             
-                            AddPatchProperty(nd, pch);
                         }
                     }
 
-                    if(p.Features!=null)
+                    if (p.Features != null)
                     {
                         List<FeatureInstallation> lst = p.Features.ToList();
                         if (lst.Count > 0)
@@ -384,21 +416,21 @@ namespace ProductBrowser
 
                             foreach (FeatureInstallation fi in lst)
                             {
-                                string txt = "FeatureName : " + fi.FeatureName +"; State : "+ fi.State.ToString();
+                                string txt = "FeatureName : " + fi.FeatureName + "; State : " + fi.State.ToString();
                                 TreeNode nd = new TreeNode(txt);
                                 nd.Name = nd.Text;
                                 pa.Nodes.Add(nd);
                                 nd.ImageIndex = 1;
                                 nd.SelectedImageIndex = 1;
 
-                                
+
 
 
                             }
                         }
 
                     }
-                     
+
 
 
 
@@ -407,14 +439,50 @@ namespace ProductBrowser
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError("GetAllProducts:" + ex.Message);
+                    Logger.LogError("GetAllProducts:ProductCode:"+p.ProductCode+"\n" + ex.Message);
                 }
             }
         }
 
+        public static void NodeTextToList(List<string> lst,TreeNode node,int level)
+        {
+            int indent = (level-2) * 3;
+            if (indent < 0) indent = 0;
 
+            lst.Add(node.Text.PadLeft(node.Text.Length+indent,' '));
+            if (level == 1) lst.Add("".PadLeft(node.Text.Length+1, '='));
+            foreach ( TreeNode nd in node.Nodes)
+            {
+                NodeTextToList(lst,nd,level+1);
+            }
 
+            if (level == 1) lst.Add("\n");
 
+        }
+
+        public static List<string> GetAllNodesText()
+        {
+            List<string> result = new List<string>();
+           
+            int level = 0;
+            NodeTextToList(result, root,  level);
+
+            return result;
+
+        }
+
+        public static List<string> GetNodeAndChildren(TreeNode node)
+        {
+            
+            List<string> result = new List<string>();
+            if (node == root) return result;
+            
+            int level = node.Level;
+            NodeTextToList(result, node, level);
+
+            return result;
+
+        }
 
 
     }

@@ -9,7 +9,7 @@ using System.IO;
 using System.Web;
 using System.Text.RegularExpressions;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
    public static class Output
     {

@@ -5,9 +5,9 @@ using System.Text;
  
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using FixSQLMSI.Collections.Generic;
+using FixMissingMSI.Collections.Generic;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
      
     public class SortableBindingList<T> : BindingList<T>

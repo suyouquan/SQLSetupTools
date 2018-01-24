@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
     public partial class Form1 : Form
     {
@@ -27,24 +27,37 @@ namespace FixSQLMSI
             InitializeComponent();
 
             lbl = this.lbInfo;
+
+            lableSwitch(false);
+
             Logger.SetupLog();
 
-            myData.Init(dataGridView1, UpdateStatus, DoneCallBack);
-            this.Height = 600;
-            this.Width = 1000;
-
-            ResizeIt();
+            myData.Init(dataGridView1, UpdateStatus, DoneCallBack, DoneCallBack_Last);
+ 
 
             myform = this;
 
             string ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text = this.Text + "  Verion" + ver.Replace(".0.0", "");
 
+            splitContainer1.SplitterDistance= splitContainer1.Panel1MinSize;
 
         }
+        public void lableSwitch(bool isVisible)
+        {
+            rbAll.Visible 
+                = rbMissingOrMismatched.Visible 
+                = lbTotal.Visible 
+                = lbOK.Visible 
+                = lbMissing.Visible 
+                = lbMismatched.Visible
+                = isVisible;
 
+            lbInfo.Visible = !isVisible;
+        }
         public void UpdateStatistics()
         {
+            Logger.LogMsg("UpdateStatistics started.");
             this.lbTotal.Text = "Total: " + this.dataGridView1.Rows.Count.ToString();
             int mismatched = 0, missing = 0, ok = 0;
             foreach (DataGridViewRow r in this.dataGridView1.Rows)
@@ -60,7 +73,7 @@ namespace FixSQLMSI
             this.lbOK.Text = "OK: " + ok;
             this.lbMismatched.Text = "Mismatched: " + mismatched;
             this.lbMissing.Text = "Missing: " + missing;
-            // Logger.LogMsg("UpdateStatistics called.");
+            Logger.LogMsg("UpdateStatistics done.");
         }
 
         public void ShowInfo(string msg)
@@ -85,14 +98,45 @@ namespace FixSQLMSI
                 lbInfo.Refresh();
                 myData.SetRow();//scan done, update the datasource of the gridview
 
-                UpdateColorForDataGridView();
+          
                 UpdateStatistics();
-                this.Enabled = true;
-                lbInfo.Text = "Done.";
+             
+                UpdateColorForDataGridView();
+                lbInfo.Text = "";
                 lbInfo.Refresh();
                 SetColumnSort();
+                lableSwitch(true);
+
+                rbAll.Visible = rbMissingOrMismatched.Visible = false;
+                lbInfo.Visible = true; 
+               
+                //Now call afterdone to update FixCommand
+                Thread th = new Thread(new ThreadStart(myData.AfterDone));
+                th.Start();
+
             });
         }
+
+
+        public void DoneCallBack_Last()
+        {
+            myform.BeginInvoke((MethodInvoker)delegate
+            {
+
+                lbInfo.Visible = false;
+              
+
+                rbAll.Visible = rbMissingOrMismatched.Visible = true;
+                this.menuStrip1.Enabled = true;
+                rbAll.Enabled = rbMissingOrMismatched.Enabled = true;
+                // lableSwitch(true);
+            
+
+             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+
+            });
+        }
+
         public void UpdateStatus(string msg)// string data, int colorAARRGGBB = 0)
         {
 
@@ -113,22 +157,7 @@ namespace FixSQLMSI
             }
         }
 
-        private void btnFolderBrowse_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.FolderBrowserDialog dialog = new FolderBrowserDialog();
-
-
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                //  MessageBox.Show("You selected: " + dialog.FileName);
-                tbSQLMediaPath.Text = dialog.SelectedPath;
-
-            }
-
-
-
-        }
+        
 
 
         private void rbMissingOrMismatched_CheckedChanged(object sender, EventArgs e)
@@ -137,6 +166,7 @@ namespace FixSQLMSI
             //Missing/Mismtached only
             if (((RadioButton)sender).Checked == true)
             {
+                lbInfo.Visible = true;
                 lbInfo.Text = "Refreshing...may take minutes...";
                 lbInfo.Refresh();
                 myData.SetFilter(dataGridView1);
@@ -153,22 +183,12 @@ namespace FixSQLMSI
             }
             lbInfo.Text = "";
             lbInfo.Refresh();
-
+            lbInfo.Visible = false;
             this.Enabled = true;
         }
 
 
-
-        private void btnLog_Click(object sender, EventArgs e)
-        {
-            if (!File.Exists(Logger.logFileName)) return;
-            var process = new Process();
-            process.StartInfo.FileName = "notepad.exe";
-            process.StartInfo.Arguments = Logger.logFileName;
-
-            process.Start();
-
-        }
+ 
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -181,71 +201,7 @@ namespace FixSQLMSI
         }
 
 
-
-
-        private void btnScan_Click(object sender, EventArgs e)
-        {
-
-            if (String.IsNullOrEmpty(tbSQLMediaPath.Text))
-            {
-                DialogResult result = MessageBox.Show("SQL setup source folder is not specified."
-                    + "\n\nYou may fail to fix missing/mismatched cached MSI/MSP files. If you specify the folder after SCAN, you need to click SCAN again." +
-                    "\n\nPlease click Yes to scan anyway. "
-                    + "or click No to cancel this operation.", "SQL setup source folder is not specified",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    lbInfo.Text = "Scan begin,may take minutes...";
-                    lbInfo.Refresh();
-
-                    // myData.RemoveFilter(dataGridView1);
-
-                    rbAll.Checked = true;
-
-                    this.Enabled = false;
-                    myData.setupSource = "";
-                    myData.RemoveDataSource();
-                    Thread th = new Thread(new ThreadStart(myData.ScanWithoutSQLSetupSource));
-
-                    // myData.ScanWithSQLSetupSource();
-                    th.Start();
-                    //  myData.ScanWithoutSQLSetupSource();
-
-
-                }
-
-            }
-            else
-            {
-                if (!Directory.Exists(tbSQLMediaPath.Text.Trim()))
-                {
-                    MessageBox.Show("The specified folder doesn't exist!\n" + tbSQLMediaPath.Text.Trim(), "Invalid folder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    lbInfo.Text = "Scan begin...";
-                    lbInfo.Refresh();
-
-                    //  myData.RemoveFilter(dataGridView1);
-
-                    rbAll.Checked = true;
-                    this.Enabled = false;
-                    myData.setupSource = tbSQLMediaPath.Text.Trim();
-                    myData.RemoveDataSource();
-                    Thread th = new Thread(new ThreadStart(myData.ScanWithSQLSetupSource));
-
-                    // myData.ScanWithSQLSetupSource();
-                    th.Start();
-
-
-
-                }
-
-
-            }
-
-
-        }
+ 
         private class MyCell
         {
             public Int32 rowIdx;
@@ -292,25 +248,14 @@ namespace FixSQLMSI
             if (!String.IsNullOrEmpty(s))
             {
                 Clipboard.SetText(s.Trim());
-                lbInfo.Text = cnt + " selected cell(s) copied to clipboard.";
+               // lbInfo.Text = cnt + " selected cell(s) copied to clipboard.";
             }
         }
 
         private void btnScanFix_Click(object sender, EventArgs e)
         {
 
-            String warning = "Do you want to fix those missing/mismatched msi/msp automatically ?";
-            DialogResult result = MessageBox.Show(warning, "Confirmation",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
-            {
-                this.Enabled = false;
-                int count = FixAll();
-                this.Enabled = true;
-                MessageBox.Show("Done. Fixed: " + count + " items.", "Fix All");
-                lbInfo.Text = "Fixed: " + count + " items.";
-                Logger.LogMsg("Fixed: " + count + " items.");
-            }
+         
 
 
 
@@ -329,29 +274,18 @@ namespace FixSQLMSI
 
             }
         }
-        private void ResizeIt()
-        {
-            if (this.Height >= 500 && this.Width >= 900)
-            {
-                dataGridView1.Width = this.Width - 40;
-                dataGridView1.Height = this.Height - 170;
-                lbInfo.Top = this.Height - 60;
-                //  lbMismatched.Top = lbMissing.Top = lbOK.Top = lbInfo.Top;
-                btnExport.Left = this.Width - (btnLog.Width + 120);
-                btnLog.Left = this.Width - 100;
-            }
-
-        }
+       
         private void Form1_Resize(object sender, EventArgs e)
         {
-            ResizeIt();
+           // ResizeIt();
         }
 
         public void UpdateColorForDataGridView()
         {
+            Logger.LogMsg("UpdateColorForDataGridView started.");
             foreach (DataGridViewRow row in this.dataGridView1.Rows)
             {
-
+              
                 if ((CacheFileStatus)row.Cells["Status"].Value == CacheFileStatus.Missing)
                 {
                     row.DefaultCellStyle.BackColor = Color.OrangeRed;
@@ -373,10 +307,12 @@ namespace FixSQLMSI
 
                 else
                 {
-                    if (row.Cells["PackageName"].Value.ToString().ToUpper().Contains(".MSP"))
-                        row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255, 240);
-                    else row.DefaultCellStyle.BackColor = Color.White;
-
+                    if ((row.Cells["PackageName"].Value!=null))
+                    {
+                        if (row.Cells["PackageName"].Value.ToString().ToUpper().Contains(".MSP"))
+                            row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255, 240);
+                        else row.DefaultCellStyle.BackColor = Color.White;
+                    }
                     //Hide the Fix it buton
                     row.Cells["FixIt"].Value = null;
                     row.Cells["FixIt"] = new DataGridViewTextBoxCell();
@@ -579,7 +515,57 @@ namespace FixSQLMSI
             return fixedCount;
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+      
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            this.Enabled = false;
+          //  lbInfo.Text = "Sorting and coloring...";
+          //  lbInfo.Refresh();
+
+
+            this.UpdateColorForDataGridView();
+
+
+            this.Enabled = true;
+            //lbInfo.Text = "Column sorted.";
+           // lbInfo.Refresh();
+
+        }
+
+        public void StartScan()
+        {
+            Form scan = new ScanForm();
+            DialogResult r = scan.ShowDialog();
+
+            if (r == DialogResult.OK)
+            {
+                this.dataGridView1.CellClick -= this.dataGridView1_CellClick;
+                lableSwitch(false);
+                rbAll.Enabled = rbMissingOrMismatched.Enabled = false;
+                menuStrip1.Enabled = false;
+ 
+                
+                myData.RemoveDataSource();
+                Thread th = new Thread(new ThreadStart(myData.ScanProducts));
+                th.Start();
+               
+                 
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            StartScan();
+        }
+
+        private void scanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartScan();
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (myData.rows.Count == 0)
             {
@@ -606,7 +592,7 @@ namespace FixSQLMSI
             }
             else return;
 
-
+            lbInfo.Visible = true;
             this.Enabled = false;
             lbInfo.Text = "Export data to " + fileNameTXT + " as text file, may take minutes...";
             lbInfo.Refresh();
@@ -626,7 +612,7 @@ namespace FixSQLMSI
 
 
 
-
+            lbInfo.Visible = false;
             this.Enabled = true;
             lbInfo.Text = "Done.";
             lbInfo.Refresh();
@@ -636,21 +622,55 @@ namespace FixSQLMSI
 
         }
 
-        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void logToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!File.Exists(Logger.logFileName)) return;
+            var process = new Process();
+            process.StartInfo.FileName = "notepad.exe";
+            process.StartInfo.Arguments = Logger.logFileName;
 
-            this.Enabled = false;
-            lbInfo.Text = "Sorting and coloring...";
-            lbInfo.Refresh();
+            process.Start();
+        }
 
+        private void fixAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            String warning = "Do you want to fix those missing/mismatched msi/msp automatically ?";
+            DialogResult result = MessageBox.Show(warning, "Confirmation",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
 
-            this.UpdateColorForDataGridView();
+                this.menuStrip1.Enabled = false;
+                rbAll.Enabled = rbMissingOrMismatched.Enabled = false;
+                this.dataGridView1.Enabled = false;
 
+                int count = FixAll();
 
-            this.Enabled = true;
-            lbInfo.Text = "Column sorted.";
-            lbInfo.Refresh();
+                MessageBox.Show("Done. Fixed: " + count + " items.", "Fix All");
+               // lbInfo.Text = "Fixed: " + count + " items.";
+                Logger.LogMsg("Fixed: " + count + " items.");
 
+                this.menuStrip1.Enabled = true;
+                rbAll.Enabled = rbMissingOrMismatched.Enabled = true;
+                this.dataGridView1.Enabled = true;
+
+            }
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+
+                e.Cancel = true;
+
+            }
         }
     }
 }

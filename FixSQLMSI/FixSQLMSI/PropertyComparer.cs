@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace FixSQLMSI.Collections.Generic
+namespace FixMissingMSI.Collections.Generic
 { 
    
    

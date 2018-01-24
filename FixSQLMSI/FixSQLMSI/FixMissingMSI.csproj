@@ -7,8 +7,8 @@
     <ProjectGuid>{08E19DA2-0C39-42BE-89F9-9D68EEF6DB04}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FixSQLMSI</RootNamespace>
-    <AssemblyName>FixSQLMSI</AssemblyName>
+    <RootNamespace>FixMissingMSI</RootNamespace>
+    <AssemblyName>FixMissingMSI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -71,10 +71,17 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MSIHelper.cs" />
     <Compile Include="MSIPackage.cs" />
+    <Compile Include="myRow.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyComparer.cs" />
+    <Compile Include="ScanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScanForm.Designer.cs">
+      <DependentUpon>ScanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="SQLProduct.cs" />
     <Compile Include="Utility.cs" />
@@ -91,6 +98,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ScanForm.resx">
+      <DependentUpon>ScanForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>

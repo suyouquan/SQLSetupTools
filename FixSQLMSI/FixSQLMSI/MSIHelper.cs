@@ -8,7 +8,7 @@ using Microsoft.Deployment.WindowsInstaller.Linq;
 using Microsoft.Deployment.WindowsInstaller.Package;
 using System.Runtime.InteropServices;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
    public static class MSIHelper
     {

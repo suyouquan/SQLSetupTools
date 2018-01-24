@@ -4,7 +4,7 @@ using System.Linq;
  
 using System.Windows.Forms;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
     static class Program
     {

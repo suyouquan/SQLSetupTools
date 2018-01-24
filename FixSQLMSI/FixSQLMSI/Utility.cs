@@ -6,7 +6,7 @@ using System.Text;
 
 using System.Runtime.CompilerServices;
 
-namespace FixSQLMSI
+namespace FixMissingMSI
 {
     public static class Utility
     {

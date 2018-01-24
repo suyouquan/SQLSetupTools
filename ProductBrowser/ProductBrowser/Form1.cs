@@ -9,9 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
+using System.Diagnostics;
+using System.Reflection;
+using System.IO;
+using Microsoft.Win32;
 
 namespace ProductBrowser
 {
+
+
+      
     public partial class Form1 : Form
     {
 
@@ -110,14 +117,175 @@ namespace ProductBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
-         //   Start();
+          
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.label1.Visible = true;
-            label1.Text = "Scanning...may take minutes.";
-            Start();
+            Form scanf = new ScanForm();
+            DialogResult r = scanf.ShowDialog();
+            if (r == DialogResult.OK)
+            {
+                this.label1.Visible = true;
+                label1.Text = "Scanning...may take minutes.";
+                Start();
+            }
+        }
+
+        private void logToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(Logger.logFileName)) return;
+            var process = new Process();
+            process.StartInfo.FileName = "notepad.exe";
+            process.StartInfo.Arguments = Logger.logFileName;
+
+            process.Start();
+        }
+
+        private void exportAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog dialog = new SaveFileDialog();
+          
+            string filename = ""; 
+            
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                filename = dialog.FileName;
+
+                if (!filename.ToLower().Contains(".txt")) filename = filename + ".txt";
+                List<string> result=Product.GetAllNodesText();
+                if(result.Count>0)
+                {
+                    File.WriteAllLines(filename, result);
+                    MessageBox.Show("File saved to:\n" + filename, "File Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+
+                e.Cancel = true;
+
+            }
+        }
+
+        private void Find()
+        {
+            Form search = new FindWhat();
+            DialogResult r = search.ShowDialog();
+            if (r == DialogResult.Yes)
+            {
+                myFind.findResult.node.TreeView.SelectedNode = myFind.findResult.node;
+              
+             //   if (myFind.findResult.isNodeText) this.treeView1.Focus();
+                
+
+            }
+            else if (r == DialogResult.No)
+            {
+                MessageBox.Show("Key not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            this.treeView1.Focus();
+        }
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            Form scanf = new ScanForm();
+            DialogResult r = scanf.ShowDialog();
+            if (r == DialogResult.OK)
+            {
+                this.label1.Visible = true;
+                label1.Text = "Scanning...may take minutes.";
+                Start();
+            }
+
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            myFind.treeViewSelectedNode = e.Node;
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeView1.SelectedNode = e.Node;
+                contextMenuStrip1.Tag = e.Node;
+                contextMenuStrip1.Show(treeView1, e.Location);
+            }
+
+        }
+
+        private void findToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Find();
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Find();
+        }
+
+        private void findNextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(myFind.lastFindText))
+            {
+
+                bool isFound = myFind.Find(myFind.lastFindText);
+                if (isFound)
+                {
+                    myFind.findResult.node.TreeView.SelectedNode = myFind.findResult.node;
+                
+                    if (myFind.findResult.isNodeText) this.treeView1.Focus();
+                   
+                }
+                else
+                    MessageBox.Show("Key not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+            }
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+           ver= ver.Replace(".0.0", "");
+
+            MessageBox.Show("Product Browser, Version " + ver + "\nA tool to list Windows Installer Products\nBy Simon Su @Microsoft, 2018.1.22", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void copyNodeNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string text = treeView1.SelectedNode.Text;
+            if (!String.IsNullOrEmpty(text))
+            {
+                Clipboard.SetText(treeView1.SelectedNode.Text);
+               
+            }
+        }
+
+        private void copyNodeAndChildrenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> result = Product.GetNodeAndChildren(treeView1.SelectedNode);
+            if (result.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (string s in result) sb.AppendLine(s);
+                Clipboard.SetText(sb.ToString());
+
+            }
+            else Clipboard.SetText("Please select a product to copy.");
         }
     }
 }
