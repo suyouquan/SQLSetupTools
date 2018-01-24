@@ -11,6 +11,7 @@ The binaries can be downloaded in Release tab or below:
 https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_V2.0.zip
 
 Note that you need NET 4.5 to run above version.
+If you don't have .NET 4.5 installed please download older version that support .NET 3.5 in release tab of this website.
 
 Screenshot:
 ![screenshot](https://user-images.githubusercontent.com/35096859/35314819-939ae972-0103-11e8-8e32-f0f9bcc7475e.png)
