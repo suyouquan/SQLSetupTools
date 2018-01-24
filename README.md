@@ -43,6 +43,9 @@ Screenshot:
 # Product Browser 1.2
 A tool to browse what products are installed and their properties and patch information
 ![productbrowser_v1 2](https://user-images.githubusercontent.com/35096859/35320665-8edb720a-011f-11e8-9417-1dd2f568fabe.png)
+You can download it here:
+https://github.com/suyouquan/SQLSetupTools/releases/download/v1.2/ProductBrowser_V1.2_NET4.5.zip
+
 
 # SQL Registry Viewer 1.0
 A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
