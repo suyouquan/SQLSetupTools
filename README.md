@@ -8,10 +8,13 @@ This tool has a friendly user interface to tell you what setup related MSI/MSP f
 I would recommend you  use Windows Installer Cache Verifier Package, as directed in KB article 2667628, to verify the cached  MSI/MSP files if you use this tool to fix MSI/MSP files.
 
 The binaries can be downloaded in Release tab or below:
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_V2.0.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_V2.0_ForNET4.5.zip
 
 Note that you need NET 4.5 to run above version.
-If you don't have .NET 4.5 installed please download older version that support .NET 3.5 in release tab of this website.
+If you don't have .NET 4.5 installed please download .NET 3.5 version here:
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_V2.0_ForNET3.5.zip
 
 Screenshot:
 ![screenshot](https://user-images.githubusercontent.com/35096859/35314819-939ae972-0103-11e8-8e32-f0f9bcc7475e.png)
+
+[up](#fixmissingmsi-version-20)
