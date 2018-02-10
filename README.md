@@ -1,3 +1,25 @@
+# SQL Setup ToolSuite
+There are three tools:
+
+
+-[FixMissingMSI Version 2.0](#fixmissingmsi-version-20)
+
+A tool to fix missing MSI/MSP in Windows Installer cache
+
+
+
+-[Product Browser Version 1.2](#product-browser-12)
+
+A tool to browse what products are installed and their properties and patch information
+
+
+
+-[SQL Registry Viewer 1.0](#sql-registry-viewer-10)
+
+A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
+
+
+
 # FixMissingMSI Version 2.0
 
 FixMissingMSI is a tool to fix missing/mismatched MSI/MSP files in widnows installer cache folder, especially for SQL product this tool extends the capability of “FindSQLInstalls.vbs script” from below article:
@@ -17,4 +39,17 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/V2.0/FixMissingMSI_
 Screenshot:
 ![screenshot](https://user-images.githubusercontent.com/35096859/35314819-939ae972-0103-11e8-8e32-f0f9bcc7475e.png)
 
-[up](#fixmissingmsi-version-20)
+
+# Product Browser 1.2
+A tool to browse what products are installed and their properties and patch information
+![productbrowser_v1 2](https://user-images.githubusercontent.com/35096859/35320665-8edb720a-011f-11e8-9417-1dd2f568fabe.png)
+You can download it here:
+https://github.com/suyouquan/SQLSetupTools/releases/download/v1.2/ProductBrowser_V1.2_NET4.5.zip
+
+
+# SQL Registry Viewer 1.0
+A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
+https://github.com/suyouquan/SQLSetupTools/releases/download/1.0/SQLRegistryViewer_V1.0_NET4.5.zip
+![sqlregistryviewer_v1 0](https://user-images.githubusercontent.com/35096859/35322758-61b34efe-0126-11e8-980e-611a7cb4b1c9.png)
+
+
