@@ -41,7 +41,7 @@
             // 
             this.radioButtonAll.AutoSize = true;
             this.radioButtonAll.Checked = true;
-            this.radioButtonAll.Location = new System.Drawing.Point(33, 56);
+            this.radioButtonAll.Location = new System.Drawing.Point(23, 47);
             this.radioButtonAll.Name = "radioButtonAll";
             this.radioButtonAll.Size = new System.Drawing.Size(158, 29);
             this.radioButtonAll.TabIndex = 0;
@@ -53,7 +53,7 @@
             // radioButtonFilter
             // 
             this.radioButtonFilter.AutoSize = true;
-            this.radioButtonFilter.Location = new System.Drawing.Point(33, 124);
+            this.radioButtonFilter.Location = new System.Drawing.Point(246, 47);
             this.radioButtonFilter.Name = "radioButtonFilter";
             this.radioButtonFilter.Size = new System.Drawing.Size(374, 29);
             this.radioButtonFilter.TabIndex = 1;
@@ -67,14 +67,14 @@
             this.groupBox1.Controls.Add(this.radioButtonAll);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(484, 249);
+            this.groupBox1.Size = new System.Drawing.Size(733, 156);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Scan Filter";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(66, 167);
+            this.textBox1.Location = new System.Drawing.Point(274, 82);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(374, 31);
             this.textBox1.TabIndex = 2;
@@ -82,9 +82,9 @@
             // 
             // btnScan
             // 
-            this.btnScan.Location = new System.Drawing.Point(555, 28);
+            this.btnScan.Location = new System.Drawing.Point(317, 205);
             this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(276, 62);
+            this.btnScan.Size = new System.Drawing.Size(198, 50);
             this.btnScan.TabIndex = 3;
             this.btnScan.Text = "Scan Now";
             this.btnScan.UseVisualStyleBackColor = true;
@@ -92,9 +92,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(555, 109);
+            this.btnCancel.Location = new System.Drawing.Point(547, 205);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(276, 62);
+            this.btnCancel.Size = new System.Drawing.Size(198, 50);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(883, 295);
+            this.ClientSize = new System.Drawing.Size(788, 289);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.groupBox1);
@@ -112,7 +112,7 @@
             this.MinimizeBox = false;
             this.Name = "ScanForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ScanForm";
+            this.Text = "Scan";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
