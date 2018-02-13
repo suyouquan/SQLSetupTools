@@ -53,3 +53,19 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/V2.1/SQLRegViewer_V
 ![sqlregistryviewer_v1 0](https://user-images.githubusercontent.com/35096859/35322758-61b34efe-0126-11e8-980e-611a7cb4b1c9.png)
 
 
+What is new in Version 2.0
+
+Comparing to version 1.0, version 2.0 has below advantages:
+
+1.Cached meta you scannedIf you ever scan your SP/CU folder, their meta will be cached for next run. This can save the scan time significantly. 
+
+2.Pre-processed the SQL meta files so loading time will be in seconds instead of minutes, and the size of the tool reduces from 40MB to 4MB.
+
+3.Use multi-threading technology to load registry keys asynchronously and in parallel. This help reduce the time to scan the registry keys. With these technologies now the tool runs 2 times faster.
+
+4.Put some scan task to background so you can get the UI sooner to browse the keys.
+
+5.If you export the keys the result detailed text file will have remark about what the keys belongs to. For example, below entry tells you the key is for “SQL Server 2008 R2 Management Studio”:[SQL Server 2008 R2 Management Studio]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\6E63FE9FCFA1D2244BD1045FE2A00E7F]"AB3CB1820BCF65042B6B105D760D8DC8"  
+
