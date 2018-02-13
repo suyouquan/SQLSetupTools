@@ -14,7 +14,7 @@ A tool to browse what products are installed and their properties and patch info
 
 
 
--[SQL Registry Viewer 1.0](#sql-registry-viewer-20)
+-[SQL Registry Viewer 2.0](#sql-registry-viewer-20)
 
 A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
 
