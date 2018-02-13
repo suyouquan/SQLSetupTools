@@ -65,7 +65,8 @@ Comparing to version 1.0, version 2.0 has below advantages:
 
 4.Put some scan task to background so you can get the UI sooner to browse the keys.
 
-5.If you export the keys the result detailed text file will have remark about what the keys belongs to. For example, below entry tells you the key is for “SQL Server 2008 R2 Management Studio”:[SQL Server 2008 R2 Management Studio]
+5.If you export the keys the result detailed text file will have remark about what the keys belongs to. For example, below entry tells you the key is for “SQL Server 2008 R2 Management Studio”:
 
+[SQL Server 2008 R2 Management Studio]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\6E63FE9FCFA1D2244BD1045FE2A00E7F]"AB3CB1820BCF65042B6B105D760D8DC8"  
 
