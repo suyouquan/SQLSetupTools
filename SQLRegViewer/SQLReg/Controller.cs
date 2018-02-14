@@ -386,10 +386,15 @@ namespace SQLReg
             foreach (Thread th in bigThreads) th.Join();
 
             //Now start another thread to compare the Component key.
+            if (Controller.shouldAbort) return;
 
             Thread thComponents = new Thread(new ThreadStart(Analysis.Installer.Add_HKLM_Components));
             thComponents.Start();
             thComponents.Join();
+
+            if (Controller.shouldAbort) return;
+
+
             GenerateNodeForBigItems();
 
             Logger.LogMsg("UpdateNodeTextWithNodeCount (BG) started.");
