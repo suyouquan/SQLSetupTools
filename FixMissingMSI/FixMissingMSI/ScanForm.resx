@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>Please specify the path to the installation media, in order to replace missing files that end with the extension .msi.
+
+If the missing files end with the extension .msp, then specify a folder that contains the extracted hotfix files. If the product associated with the missing files is SQL Server, then give the path to the Update Cache folder. For example the path below is the path of the Update Cache folder for SQL Server 2017.
+
+C:\Program Files\Microsoft SQL Server\140\Setup Bootstrap\Update Cache
+
+The numbered folder will change depending on the version of SQL Server you are using.
+
+If you have a folder that contains both the installation media and the extracted hotfix files you can specify that. Otherwise you can run Scan from the File menu multiple times, for each folder that contains the msi and msp files
+</value>
+  </data>
 </root>
