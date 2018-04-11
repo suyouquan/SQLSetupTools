@@ -2,25 +2,25 @@
 There are three tools:
 
 
--[FixMissingMSI Version 2.2](#fixmissingmsi-version-20)
+-[FixMissingMSI Version 2.2](#fixmissingmsi-version-22)
 
 A tool to fix missing MSI/MSP in Windows Installer cache
 
 
 
--[Product Browser Version 2.2](#product-browser-12)
+-[Product Browser Version 2.2](#product-browser-22)
 
 A tool to browse what products are installed and their properties and patch information
 
 
 
--[SQL Registry Viewer 2.2](#sql-registry-viewer-20)
+-[SQL Registry Viewer 2.2](#sql-registry-viewer-22)
 
 A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
 
 
 
-# FixMissingMSI Version 2.0
+# FixMissingMSI Version 2.2
 
 FixMissingMSI is a tool to fix missing/mismatched MSI/MSP files in widnows installer cache folder, especially for SQL product this tool extends the capability of “FindSQLInstalls.vbs script” from below article:
 https://support.microsoft.com/en-us/help/969052
