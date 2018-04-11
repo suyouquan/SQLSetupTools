@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.IO;
 using Microsoft.Win32;
 
@@ -158,7 +158,11 @@ namespace SQLReg.Analysis
                 //now check ProdID
                 //HKEY_CLASSES_ROOT\DTS.ConnectionManagerOlap.5\CLSID
 
-                RegistryKey hkcr = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, RegistryView.Registry64);
+                //.this require .NET 45. so comment it
+                //  RegistryKey hkcr = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, RegistryView.Registry64);
+
+                var hkcr = RegistryExtensions.OpenBaseKey(RegistryHive.ClassesRoot, RegistryExtensions.RegistryHiveType.X64);
+
                 string[] allnames = hkcr.GetSubKeyNames();
                   cnt = 0;
                 foreach (string s in allnames)

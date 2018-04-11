@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -69,18 +69,18 @@ namespace SQLReg
         {
             LogMsg("[WARNING]" + msg);
         }
-
+        /*
         public static void LogError(string msg, [CallerMemberName]string memberName = "", [CallerFilePath]string file = "",
             [CallerLineNumber]int lineNum = 0)
         {
 
-            /*
+          
 
-            if (msg.Contains("[ERROR]"))
-                Console.ForegroundColor = ConsoleColor.Red;
-            else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
-            else Console.ForegroundColor = ConsoleColor.Gray;
-            */
+            //if (msg.Contains("[ERROR]"))
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
+            //else Console.ForegroundColor = ConsoleColor.Gray;
+          
             string txt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 + "[ERROR]["   +Path.GetFileName(file) + ":" + lineNum + ":"+ memberName + "]"
                 +
@@ -100,10 +100,33 @@ namespace SQLReg
         }
 
 
+*/
+
+
+        public static void LogError(string msg)
+        {
+            /*
+            if (msg.Contains("[ERROR]"))
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
+            else Console.ForegroundColor = ConsoleColor.Gray;
+            */
+            string txt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                + "[ERROR]" + msg;
+            if (logsw != null) { logsw.WriteLine(txt); logsw.Flush(); }
+            else
+            {
+                SetupLog();
+                if (logsw != null)
+                {
+                    logsw.WriteLine(txt); logsw.Flush();
+                }
+
+            }
 
 
 
-
+        }
 
 
 

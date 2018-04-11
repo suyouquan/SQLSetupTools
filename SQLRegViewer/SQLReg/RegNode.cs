@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 
 using Microsoft.Win32;
 using System.Windows.Forms;
@@ -245,7 +245,32 @@ namespace SQLReg
                 just IsSQLRoot is not able to set.
                  */
 
-                Logger.LogError("sqlRegKeys doesn't have this node name! " + current.Name + " vs key:" + key);
+
+                bool found = false;
+                foreach(string s in Controller.sqlRegKeys.Keys)
+                {
+                    if (s.ToUpper()==current.Name.ToUpper())
+                    {
+                        Reason r = Controller.sqlRegKeys[s];
+                        if (r.cleanable == true)
+                        {
+                            ((RegKey)current.Tag).IsSQLOwned = true;
+                            ((RegKey)current.Tag).IsSQLRoot = true;
+                            current.ForeColor = Color.DarkBlue;
+                        }
+                        else
+                        {
+                            ((RegKey)current.Tag).IsSQLOwned = false;
+                            ((RegKey)current.Tag).IsSQLRoot = true;
+                            current.ForeColor = Color.DarkBlue;//same color anyway
+
+                        }
+                        found = true;
+                        break;
+                    }
+                }
+
+              if(!found)  Logger.LogError("sqlRegKeys doesn't have this node name! " + current.Name + " vs key:" + HKNode.Name + "\\" + key);
             }
             
             GetAllSubKeys_Recursive(current);

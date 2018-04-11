@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
@@ -621,7 +621,7 @@ namespace SQLReg
 
 
 
-                File.WriteAllLines(readmeFile, GetReadMeTxt());
+                File.WriteAllLines(readmeFile, GetReadMeTxt().ToArray());
 
                 /*
                 //msiexec /X
@@ -632,11 +632,11 @@ namespace SQLReg
                 File.WriteAllText(fileNameDelete, sbAdmin.ToString() + result[0]);
                 
                 //service
-                File.AppendAllLines(fileNameDelete,  Analysis.Services.serviceCleanupScript  );
+                foreach(string s in Analysis.Services.serviceCleanupScript)  File.AppendAllText(fileNameDelete  ,s+"\n" );
                 File.AppendAllText(fileNameDelete, "\n:END");
                 //restore
                 File.WriteAllText(fileNameRestore, sbAdmin.ToString() + result[1]);
-                File.AppendAllLines(fileNameRestore, Analysis.Services.serviceRestoreScript);
+                foreach(string s in Analysis.Services.serviceRestoreScript) File.AppendAllText(fileNameRestore, s+"\n");
                 File.AppendAllText(fileNameRestore, "\n:END");
 
                 Process.Start("explorer.exe", target);
@@ -739,7 +739,7 @@ namespace SQLReg
         private void cleanupScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Cleanup Script function is still under testing, will be released in next update.");
-            return;
+          //  return;
 
             if (Controller.ShowWarning == true)
             {
@@ -888,7 +888,7 @@ namespace SQLReg
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex.Message + " " + ex.HResult.ToString("X8"));
+                Logger.LogError(ex.Message );
 
             }
         }

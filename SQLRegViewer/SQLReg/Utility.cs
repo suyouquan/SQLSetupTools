@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.IO;
 
 using System.Runtime.CompilerServices;
@@ -148,6 +148,8 @@ namespace SQLReg
             return builder.ToString();
         }
 
+        //require .NET 4.5
+        /*
         public static List<string> GetFilesFromFolder(string sourceDirectory, string[] fileTypes)
         {
             List<string> resultFiles = new List<string>();
@@ -187,7 +189,45 @@ namespace SQLReg
         }
 
 
+    */
 
+        public static List<string> GetFilesFromFolder(string sourceDirectory, string[] fileTypes)
+        {
+            List<string> resultFiles = new List<string>();
+
+            try
+            {
+                //var mdmpFiles = Directory.EnumerateFiles(sourceDirectory, "*.mdmp", SearchOption.AllDirectories);
+
+                DirectoryInfo di = new DirectoryInfo(sourceDirectory);
+
+
+                var directory = new DirectoryInfo(sourceDirectory);
+                //var fileTypes = new[] { "*.mdmp", "*.dmp" };
+                //this require 4.0
+                // var files = fileTypes.SelectMany(p => directory.EnumerateFiles(p, SearchOption.AllDirectories));
+
+                foreach (string fileType in fileTypes)
+                {
+                    var files = Directory.GetFiles(sourceDirectory, fileType, SearchOption.AllDirectories);
+
+                    resultFiles.AddRange(files);
+                }
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("GetFilesFromFolder:" + ex.Message);
+
+
+            }
+
+
+            return resultFiles;
+        }
 
 
 

@@ -91,8 +91,11 @@ namespace FixMissingMSI
 
                             {
                                 //if both are null, or one is null, set it mismatched
-                                if(string.IsNullOrEmpty(cachedPackageCode ) || string.IsNullOrEmpty(this.PackageCode))
+                                if (string.IsNullOrEmpty(cachedPackageCode) || string.IsNullOrEmpty(this.PackageCode))
+                                {
                                     stat = CacheFileStatus.Mismatched;
+                                    this.Comment = "At least one of the package codes is null. cached file has package code:" + cachedPackageCode + ", Installer one:" + this.PackageCode;
+                                }
 
                             }
                             //if (!String.IsNullOrEmpty(this.ProductVersion))
@@ -201,8 +204,12 @@ namespace FixMissingMSI
 
                             {
                                 //if both are null, or one is null, set it mismatched
-                                if (string.IsNullOrEmpty(cachePatchCode )|| string.IsNullOrEmpty(this.PatchCode ))
+                                if (string.IsNullOrEmpty(cachePatchCode) || string.IsNullOrEmpty(this.PatchCode))
+                                {
                                     stat = CacheFileStatus.Mismatched;
+                                    this.Comment = "At least one of the patch codes is null. cached file has package code:" + cachePatchCode + ", Installer one:" + this.PatchCode;
+
+                                }
 
                             }
                             //String ver = MSIHelper.MspGetMetadata(p.LocalPackage, "BaselineVersion");

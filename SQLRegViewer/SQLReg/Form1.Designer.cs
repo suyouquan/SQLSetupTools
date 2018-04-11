@@ -97,7 +97,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(2008, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(2011, 40);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -245,8 +245,8 @@
             // splitContainer_innest.Panel2
             // 
             this.splitContainer_innest.Panel2.Controls.Add(this.propertyGrid);
-            this.splitContainer_innest.Size = new System.Drawing.Size(2008, 1057);
-            this.splitContainer_innest.SplitterDistance = 798;
+            this.splitContainer_innest.Size = new System.Drawing.Size(2011, 1060);
+            this.splitContainer_innest.SplitterDistance = 799;
             this.splitContainer_innest.TabIndex = 7;
             // 
             // regTree
@@ -259,7 +259,7 @@
             this.regTree.Location = new System.Drawing.Point(0, 0);
             this.regTree.Name = "regTree";
             this.regTree.SelectedImageIndex = 0;
-            this.regTree.Size = new System.Drawing.Size(798, 1057);
+            this.regTree.Size = new System.Drawing.Size(799, 1060);
             this.regTree.TabIndex = 0;
             this.regTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.regTree_AfterSelect);
             this.regTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.regTree_NodeMouseClick);
@@ -305,7 +305,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.propertyGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.propertyGrid.RowTemplate.Height = 33;
-            this.propertyGrid.Size = new System.Drawing.Size(1206, 1057);
+            this.propertyGrid.Size = new System.Drawing.Size(1208, 1060);
             this.propertyGrid.TabIndex = 0;
             this.propertyGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.propertyGrid_DataBindingComplete);
             this.propertyGrid.SelectionChanged += new System.EventHandler(this.propertyGrid_SelectionChanged);
@@ -331,7 +331,7 @@
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(2008, 31);
+            this.textBox1.Size = new System.Drawing.Size(2011, 31);
             this.textBox1.TabIndex = 8;
             // 
             // splitContainer_outest
@@ -351,7 +351,7 @@
             // splitContainer_outest.Panel2
             // 
             this.splitContainer_outest.Panel2.Controls.Add(this.splitContainer_middle);
-            this.splitContainer_outest.Size = new System.Drawing.Size(2008, 1115);
+            this.splitContainer_outest.Size = new System.Drawing.Size(2011, 1118);
             this.splitContainer_outest.SplitterDistance = 25;
             this.splitContainer_outest.TabIndex = 9;
             // 
@@ -371,8 +371,8 @@
             // splitContainer_middle.Panel2
             // 
             this.splitContainer_middle.Panel2.Controls.Add(this.textBox2);
-            this.splitContainer_middle.Size = new System.Drawing.Size(2008, 1086);
-            this.splitContainer_middle.SplitterDistance = 1057;
+            this.splitContainer_middle.Size = new System.Drawing.Size(2011, 1089);
+            this.splitContainer_middle.SplitterDistance = 1060;
             this.splitContainer_middle.TabIndex = 0;
             // 
             // textBox2
@@ -447,7 +447,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2008, 1155);
+            this.ClientSize = new System.Drawing.Size(2011, 1158);
             this.Controls.Add(this.splitContainer_outest);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

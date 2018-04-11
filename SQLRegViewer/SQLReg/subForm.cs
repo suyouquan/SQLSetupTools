@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.Windows.Forms;
 using System.IO;
 
@@ -98,16 +98,19 @@ namespace SQLReg
 
             string[] fileTypes = new string[] { "*.xml"};
             DirectoryInfo di = new DirectoryInfo(path);
-            var xmlFiles = fileTypes.SelectMany(p => di.EnumerateFiles(p, SearchOption.AllDirectories)).OrderByDescending(fi=>fi.CreationTime);
+            //it require .NET 4.5
+            //  var xmlFiles = fileTypes.SelectMany(p => di.EnumerateFiles(p, SearchOption.AllDirectories)).OrderByDescending(fi=>fi.CreationTime);
+            var xmlFiles = Utility. GetFilesFromFolder(path, fileTypes);
+
 
           
-            foreach (FileInfo f in xmlFiles)
+            foreach (string f in xmlFiles)
             {
                 try
                 {
 
 
-                    result.Add(Path.GetFileName(f.FullName));
+                    result.Add(f);
 
                 }
                 catch (Exception ex)

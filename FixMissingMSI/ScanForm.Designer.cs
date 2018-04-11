@@ -73,7 +73,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(647, 665);
+            this.btnCancel.Location = new System.Drawing.Point(647, 660);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(446, 59);
             this.btnCancel.TabIndex = 38;
@@ -83,7 +83,7 @@
             // 
             // btnScan
             // 
-            this.btnScan.Location = new System.Drawing.Point(114, 665);
+            this.btnScan.Location = new System.Drawing.Point(114, 660);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(446, 59);
             this.btnScan.TabIndex = 37;
@@ -96,7 +96,7 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.radioButtonFilter);
             this.groupBox1.Controls.Add(this.radioButtonAll);
-            this.groupBox1.Location = new System.Drawing.Point(31, 454);
+            this.groupBox1.Location = new System.Drawing.Point(31, 449);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1129, 169);
             this.groupBox1.TabIndex = 36;
@@ -140,7 +140,7 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(1129, 327);
+            this.textBox2.Size = new System.Drawing.Size(1129, 301);
             this.textBox2.TabIndex = 39;
             this.textBox2.Text = resources.GetString("textBox2.Text");
             // 
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 771);
+            this.ClientSize = new System.Drawing.Size(1194, 758);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnScan);
