@@ -30,11 +30,12 @@ This tool has a friendly user interface to tell you what setup related MSI/MSP f
 I would recommend you  use Windows Installer Cache Verifier Package, as directed in KB article 2667628, to verify the cached  MSI/MSP files if you use this tool to fix MSI/MSP files.
 
 The binaries can be downloaded in Release tab or below:
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/FixMissingMSI_V2.2_ForNET4.5.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/FixMissingMSI_V2.2ForNET45.zip
 
 Note that you need NET 4.5 to run above version.
 If you don't have .NET 4.5 installed please download .NET 3.5 version here:
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/FixMissingMSI_V2.2_ForNET3.5.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/FixMissingMSI_V2.2ForNET35.zip
+
 
 Screenshot:
 ![screenshot](https://user-images.githubusercontent.com/35096859/35314819-939ae972-0103-11e8-8e32-f0f9bcc7475e.png)
@@ -50,15 +51,15 @@ https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/ProductBrowser
 
 # SQL Registry Viewer 2.2
 A tool to view all SQL product related keys in registry just like you do with RegEdit.exe
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/SQLRegViewer_v2.2_ForNET3.5.zip
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/SQLRegViewer_v2.2_ForNET4.5.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/SQLRegViewer_v2.2NET3.5.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/SQLRegViewer_V2.2NET4.5.zip
 
 ![sqlregistryviewer_v1 0](https://user-images.githubusercontent.com/35096859/35322758-61b34efe-0126-11e8-980e-611a7cb4b1c9.png)
 
 
-What is new in Version 2.0
+What is new in Version 2.2
 
-Comparing to version 1.0, version 2.0 has below advantages:
+Comparing to version 1.0, version 2.2 has below advantages:
 
 1.Cached meta you scannedIf you ever scan your SP/CU folder, their meta will be cached for next run. This can save the scan time significantly. 
 
@@ -69,6 +70,8 @@ Comparing to version 1.0, version 2.0 has below advantages:
 4.Put some scan task to background so you can get the UI sooner to browse the keys.
 
 5.If you export the keys the result detailed text file will have remark about what the keys belongs to. For example, below entry tells you the key is for “SQL Server 2008 R2 Management Studio”:
+
+6. You can save cleanup script now to cleanup SQL server from your machine.
 
 [SQL Server 2008 R2 Management Studio]
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\6E63FE9FCFA1D2244BD1045FE2A00E7F]"AB3CB1820BCF65042B6B105D760D8DC8"  
