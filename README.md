@@ -45,8 +45,8 @@ Screenshot:
 A tool to browse what products are installed and their properties and patch information
 ![productbrowser_v1 2](https://user-images.githubusercontent.com/35096859/35320665-8edb720a-011f-11e8-9417-1dd2f568fabe.png)
 You can download it here:
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/ProductBrowser_V2.2_ForNET3.5.zip
-https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/ProductBrowser_V2.2_ForNET4.5.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/ProductBrowser_V2.2NET45.zip
+https://github.com/suyouquan/SQLSetupTools/releases/download/V2.2/ProductBrowser_V2.2NET35.zip
 
 
 # SQL Registry Viewer 2.2
