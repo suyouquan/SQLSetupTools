@@ -10,6 +10,7 @@ using Microsoft.Deployment.WindowsInstaller;
 using Microsoft.Deployment.WindowsInstaller.Linq;
 using Microsoft.Deployment.WindowsInstaller.Package;
 using System.IO;
+using Microsoft.Win32;
 
 namespace FixMissingMSI
 {
@@ -191,6 +192,7 @@ namespace FixMissingMSI
         {
             if(setupSource!="") ScanSetupMedia();
             AddMsiMspPackageFromLastUsedSource();
+            AddMsiMspPackageFromSQLBootstrapCache();
             UpdateFixCommand();
 
             DoneCallBack_Last();
@@ -221,6 +223,80 @@ namespace FixMissingMSI
                         Logger.LogMsg(j + " [Not Found]" + path);
                     }
                 }catch(Exception ex)
+                {
+                    Logger.LogError("AddMsiMspPackageFromLastUsedSource:" + ex.ToString());
+                }
+
+            }
+
+            Logger.LogMsg("Total " + i + " packages from LastUsedSource added.");
+            UpdateUI("Total " + i + " packages from LastUsedSource added.");
+
+
+        }
+        
+        private static List<string> GetSQLBootStrapCacheFolder()
+        {
+            List<string> cacheFolders = new List<string>();
+            try
+            {
+                string key = @"SOFTWARE\Microsoft\Microsoft SQL Server";
+                RegistryKey rk = Registry.LocalMachine.OpenSubKey(key);
+                if (rk != null)
+                {
+                    string[] subs = rk.GetSubKeyNames();
+
+                    foreach(string s in subs)
+                    {
+                        //check whether it is 90,110,120,130,...
+                        int result = 0;
+                        Int32.TryParse(s, out result);
+                        if(result>=90 && result<900) //>90, <900, think it is correct value
+                        {
+                            RegistryKey sub = Registry.LocalMachine.OpenSubKey(key+@"\"+s+ @"\Bootstrap");
+                            if(sub!=null)
+                            {
+                                //read BootstrapDir value
+                                var bootstrapDir=sub.GetValue("BootstrapDir");
+                                if(bootstrapDir!=null)
+                                {
+                                    string cacheDir = (string)bootstrapDir;//just scan the entire folder.
+                                    if (Directory.Exists(cacheDir))
+                                    { cacheFolders.Add(cacheDir); }
+                                }
+                            } //if sub !=null
+
+                        } //if 100,110,...
+
+                    }//check each sub
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.LogMsg("GetSQLBootStrapCacheFolder failed."+ex.Message);
+            }
+
+            return cacheFolders;
+        }
+        private static void AddMsiMspPackageFromSQLBootstrapCache()
+        {
+            Logger.LogMsg("Add msi/msp packages from Bootstrap cache...");
+            UpdateUI("Add msi/msp packages from Bootstrap cache,may take minutes...");
+            int i = 0; int j = 0;
+            List<string> cacheFolders = GetSQLBootStrapCacheFolder();
+
+            foreach (string folder  in cacheFolders)
+            {
+              
+                try
+                {
+                    List<MsiMspPackage> cachePkgs = new List<MsiMspPackage>();
+                    cachePkgs= MsiMspPackage.ScanSetupMedia(folder);
+                    foreach (MsiMspPackage m in cachePkgs) sourcePkgs.Add(m);
+
+                }
+                catch (Exception ex)
                 {
                     Logger.LogError("AddMsiMspPackageFromLastUsedSource:" + ex.ToString());
                 }
