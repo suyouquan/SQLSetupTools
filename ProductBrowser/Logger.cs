@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -70,18 +70,19 @@ namespace ProductBrowser
             LogMsg("[WARNING]" + msg);
         }
 
+        //remove this becasue only .NET 4.5 or later supports it
+        /*
         public static void LogError(string msg, [CallerMemberName]string memberName = "", [CallerFilePath]string file = "",
             [CallerLineNumber]int lineNum = 0)
         {
 
-            /*
-
-            if (msg.Contains("[ERROR]"))
-                Console.ForegroundColor = ConsoleColor.Red;
-            else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
-            else Console.ForegroundColor = ConsoleColor.Gray;
-            */
-            string txt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+           
+            //if (msg.Contains("[ERROR]"))
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
+            //else Console.ForegroundColor = ConsoleColor.Gray;
+          
+             string txt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 + "[ERROR][" + Path.GetFileName(file) + ":" + lineNum + ":" + memberName + "]"
                 +
                 "" + msg;
@@ -100,9 +101,32 @@ namespace ProductBrowser
         }
 
 
+*/
+
+        public static void LogError(string msg)
+        {
+            /*
+            if (msg.Contains("[ERROR]"))
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (msg.Contains("[WARNING]")) Console.ForegroundColor = ConsoleColor.Yellow;
+            else Console.ForegroundColor = ConsoleColor.Gray;
+            */
+            string txt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                + "[ERROR]" + msg;
+            if (logsw != null) { logsw.WriteLine(txt); logsw.Flush(); }
+            else
+            {
+                SetupLog();
+                if (logsw != null)
+                {
+                    logsw.WriteLine(txt); logsw.Flush();
+                }
+
+            }
 
 
 
+        }
 
 
 

@@ -86,6 +86,15 @@ namespace FixMissingMSI
                                 }
 
                             }
+
+                            else //if local package exists, but the package code is null, or this.PackageCode is null, set it mismatch
+
+                            {
+                                //if both are null, or one is null, set it mismatched
+                                if(string.IsNullOrEmpty(cachedPackageCode ) || string.IsNullOrEmpty(this.PackageCode))
+                                    stat = CacheFileStatus.Mismatched;
+
+                            }
                             //if (!String.IsNullOrEmpty(this.ProductVersion))
                             //{
                             //    if (ver != this.ProductVersion)
@@ -185,6 +194,15 @@ namespace FixMissingMSI
                                     this.Comment = "Patch code doesn't matched. cached file has package code:" + cachePatchCode + ", but Installer expected:" + this.PatchCode;
 
                                 }
+
+                            }
+
+                            else //if local package exists, but the cachePatchCode is null, or this.PatchCode is null, set it mismatch
+
+                            {
+                                //if both are null, or one is null, set it mismatched
+                                if (string.IsNullOrEmpty(cachePatchCode )|| string.IsNullOrEmpty(this.PatchCode ))
+                                    stat = CacheFileStatus.Mismatched;
 
                             }
                             //String ver = MSIHelper.MspGetMetadata(p.LocalPackage, "BaselineVersion");

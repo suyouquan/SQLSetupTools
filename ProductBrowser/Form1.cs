@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ 
 using System.Windows.Forms;
 using System.Threading;
 
@@ -157,7 +157,7 @@ namespace ProductBrowser
                 List<string> result=Product.GetAllNodesText();
                 if(result.Count>0)
                 {
-                    File.WriteAllLines(filename, result);
+                    File.WriteAllLines(filename, result.ToArray());
                     MessageBox.Show("File saved to:\n" + filename, "File Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
