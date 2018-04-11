@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\WiX.3.11.1\build\wix.props" Condition="Exists('..\..\packages\WiX.3.11.1\build\wix.props')" />
   <Import Project="..\packages\WiX.3.11.0\build\wix.props" Condition="Exists('..\packages\WiX.3.11.0\build\wix.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -63,20 +64,31 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Deployment.Compression">
-      <HintPath>..\packages\WiX.3.11.0\tools\sdk\Microsoft.Deployment.Compression.dll</HintPath>
+    <Reference Include="Microsoft.Deployment.Compression, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.Compression.Cab, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.Compression.Cab.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.Compression.Zip">
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.Compression.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.Resources">
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.Resources.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WiX.3.11.0\tools\sdk\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WiX.3.11.0\tools\sdk\Microsoft.Deployment.WindowsInstaller.Linq.dll</HintPath>
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.WindowsInstaller.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller.Package, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WiX.3.11.0\tools\sdk\Microsoft.Deployment.WindowsInstaller.Package.dll</HintPath>
+      <HintPath>..\..\packages\WiX.3.11.1\tools\sdk\Microsoft.Deployment.WindowsInstaller.Package.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -217,7 +229,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WiX.3.11.0\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WiX.3.11.0\build\wix.props'))" />
+    <Error Condition="!Exists('..\..\packages\WiX.3.11.1\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\WiX.3.11.1\build\wix.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
