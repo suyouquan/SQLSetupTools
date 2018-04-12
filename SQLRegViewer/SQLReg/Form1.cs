@@ -630,18 +630,18 @@ namespace SQLReg
                */
                 //installer
                 File.WriteAllText(fileNameDelete, sbAdmin.ToString() + result[0]);
-                
+
                 //service
-                foreach(string s in Analysis.Services.serviceCleanupScript)  File.AppendAllText(fileNameDelete  ,s+"\n" );
-                File.AppendAllText(fileNameDelete, "\n:END");
+                foreach (string s in Analysis.Services.serviceCleanupScript) { File.AppendAllText(fileNameDelete, s + "\n\r"); File.AppendAllText(fileNameDelete,"\n\r"); }
+                File.AppendAllText(fileNameDelete, "\n\r:END");
                 //restore
                 File.WriteAllText(fileNameRestore, sbAdmin.ToString() + result[1]);
-                foreach(string s in Analysis.Services.serviceRestoreScript) File.AppendAllText(fileNameRestore, s+"\n");
-                File.AppendAllText(fileNameRestore, "\n:END");
+                foreach (string s in Analysis.Services.serviceRestoreScript) { File.AppendAllText(fileNameRestore, s + "\n\r"); File.AppendAllText(fileNameDelete, "\n\r"); }
+                File.AppendAllText(fileNameRestore, "\n\r:END");
 
                 Process.Start("explorer.exe", target);
 
-                Logger.LogMsg("Cleanup script to:\n\"" + fileNameMsi+"\n" + fileNameDelete + " \"\n\"" + fileNameRestore + "\"");
+                Logger.LogMsg("Cleanup script to:\n\r\"" + fileNameMsi+"\n\r" + fileNameDelete + " \"\n\r\"" + fileNameRestore + "\"");
                 MessageBox.Show("Cleanup script saved. Files saved to:\n" + fileNameDelete + "\n" + fileNameRestore, "Cleanup Script Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Controller.UpdateProgress("");
 

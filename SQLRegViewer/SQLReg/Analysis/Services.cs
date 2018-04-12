@@ -50,8 +50,8 @@ namespace SQLReg.Analysis
             Controller.UpdateProgress("Add Services key...", true);
             serviceCleanupScript.Clear();
             serviceRestoreScript.Clear();
-            serviceCleanupScript.Add("\n");
-            serviceRestoreScript.Add("\n");
+            serviceCleanupScript.Add("\n\r");
+            serviceRestoreScript.Add("\n\r");
             serviceCleanupScript.Add("REM Known SQL Server related Services.");
             serviceRestoreScript.Add("REM Known SQL Server related Services.");
 
