@@ -738,7 +738,7 @@ namespace SQLReg
 
         private void cleanupScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Cleanup Script function is still under testing, will be released in next update.");
+           // MessageBox.Show("Cleanup Script function is still under testing, will be released in next update.");
           //  return;
 
             if (Controller.ShowWarning == true)

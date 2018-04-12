@@ -127,6 +127,6 @@ C:\SQLSetup\SP1CU3
 
 Then you can input the root folder, C:\SQLSetup,  for the tool to scan. You can also run Scan from the File menu multiple times, for each folder that contains the msi and msp files.
 
-Please note that if you download any SP/CU from the Internet, you need to extract it for the tool to scan. Please refer to readme for more details.</value>
+Please note that if you download any SP/CU from the Internet, you need to extract it for the tool to scan. Please go to Help menu-&gt;Manual for more details.</value>
   </data>
 </root>

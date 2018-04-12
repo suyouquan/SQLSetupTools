@@ -82,7 +82,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1850, 1004);
+            this.dataGridView1.Size = new System.Drawing.Size(1845, 998);
             this.dataGridView1.TabIndex = 35;
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -203,7 +203,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1850, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1845, 40);
             this.menuStrip1.TabIndex = 52;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -350,7 +350,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1850, 79);
+            this.panel1.Size = new System.Drawing.Size(1845, 79);
             this.panel1.TabIndex = 53;
             // 
             // splitContainer1
@@ -368,7 +368,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(1850, 1087);
+            this.splitContainer1.Size = new System.Drawing.Size(1845, 1081);
             this.splitContainer1.SplitterDistance = 79;
             this.splitContainer1.TabIndex = 55;
             // 
@@ -376,7 +376,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1850, 1127);
+            this.ClientSize = new System.Drawing.Size(1845, 1121);
             this.Controls.Add(this.lbInfo);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
