@@ -192,7 +192,11 @@ namespace FixMissingMSI
         {
             if(setupSource!="") ScanSetupMedia();
             AddMsiMspPackageFromLastUsedSource();
-            AddMsiMspPackageFromSQLBootstrapCache();
+
+            // According to recent change, the boot strap cache is no longer valid to copy to c:\windows\installer folder.
+            //
+            //AddMsiMspPackageFromSQLBootstrapCache();
+
             UpdateFixCommand();
 
             DoneCallBack_Last();
